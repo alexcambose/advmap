@@ -44,5 +44,33 @@ describe('custom config', () => {
     test('if skip is between 0 and the array length', () => {
       expect(arr.slice(2).map(f)).toEqual(arr.advmap(f, { skip: 2 }));
     });
+    test('if skip is bigger than the array length', () => {
+      expect(arr.slice(12).map(f)).toEqual(arr.advmap(f, { skip: 12 }));
+    });
+  });
+  describe('limit', () => {
+    const f = e => e + 1;
+
+    test('if limit is 0 nothing should change', () => {
+      expect(arr.map(f)).toEqual(arr.advmap(f, { limit: 0 }));
+    });
+    test('if limit is between 0 and the array length', () => {
+      expect(arr.slice(0, 2).map(f)).toEqual(arr.advmap(f, { limit: 2 }));
+    });
+    test('if limit is bigger than the array length', () => {
+      expect(arr.slice(0, 12).map(f)).toEqual(arr.advmap(f, { limit: 12 }));
+    });
+  });
+  describe('step', () => {
+    const f = e => e + 1;
+
+    test('if step is smaller or equal to 0 should throw error', () => {
+      expect(() => {
+        arr.advmap(f, { step: 0 });
+      }).toThrow();
+    });
+    test('if step is bigger than the array length', () => {
+      expect(arr.slice(0, 12).map(f)).toEqual(arr.advmap(f, { step: 12 }));
+    });
   });
 });
