@@ -30,47 +30,89 @@ describe('should behave like the native version', () => {
     const f = e => e + 1;
     expect(arr.map(f)).toEqual(arr.advmap(f, {}));
   });
+  describe('default parameters', () => {
+    test('current element', () => {
+      let fparr = [];
+      arr.advmap(e => fparr.push(e));
+      expect(fparr).toEqual(arr);
+    });
+    test('index', () => {
+      let sum1 = 0,
+        sum2 = 0;
+      arr.advmap((e, i) => (sum1 += i));
+      for (let i = 0; i < arr.length; i++) sum2 += i;
+      expect(sum1).toEqual(sum2);
+    });
+  });
 });
 
 describe('custom config', () => {
   const arr = [1, 2, 3, 4, 5];
-  const obj = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }, { e: 5 }];
-  describe('skip', () => {
-    const f = e => e + 1;
+  const objArr = [{ a: 1 }, { b: 2 }, { c: 3 }, { d: 4 }, { e: 5 }];
+  const f = e => e + 1;
 
+  describe('skip', () => {
     test('if skip is 0 nothing should change', () => {
       expect(arr.map(f)).toEqual(arr.advmap(f, { skip: 0 }));
+      expect(objArr.map(f)).toEqual(objArr.advmap(f, { skip: 0 }));
     });
     test('if skip is between 0 and the array length', () => {
       expect(arr.slice(2).map(f)).toEqual(arr.advmap(f, { skip: 2 }));
+      expect(objArr.slice(2).map(f)).toEqual(objArr.advmap(f, { skip: 2 }));
     });
     test('if skip is bigger than the array length', () => {
       expect(arr.slice(12).map(f)).toEqual(arr.advmap(f, { skip: 12 }));
+      expect(objArr.slice(12).map(f)).toEqual(objArr.advmap(f, { skip: 12 }));
     });
   });
   describe('limit', () => {
-    const f = e => e + 1;
-
     test('if limit is 0 nothing should change', () => {
       expect(arr.map(f)).toEqual(arr.advmap(f, { limit: 0 }));
+      expect(objArr.map(f)).toEqual(objArr.advmap(f, { limit: 0 }));
     });
     test('if limit is between 0 and the array length', () => {
       expect(arr.slice(0, 2).map(f)).toEqual(arr.advmap(f, { limit: 2 }));
+      expect(objArr.slice(0, 2).map(f)).toEqual(objArr.advmap(f, { limit: 2 }));
     });
     test('if limit is bigger than the array length', () => {
       expect(arr.slice(0, 12).map(f)).toEqual(arr.advmap(f, { limit: 12 }));
+      expect(objArr.slice(0, 12).map(f)).toEqual(
+        objArr.advmap(f, { limit: 12 })
+      );
     });
   });
   describe('step', () => {
-    const f = e => e + 1;
-
     test('if step is smaller or equal to 0 should throw error', () => {
       expect(() => {
         arr.advmap(f, { step: 0 });
       }).toThrow();
     });
-    test('if step is bigger than the array length', () => {
-      expect(arr.slice(0, 12).map(f)).toEqual(arr.advmap(f, { step: 12 }));
+    test('if step is bigger than the array length calculate only the first array value, [0]', () => {
+      expect([arr[0]].map(f)).toEqual(arr.advmap(f, { step: 12 }));
+      expect([objArr[0]].map(f)).toEqual(objArr.advmap(f, { step: 12 }));
+    });
+  });
+  describe('reverse', () => {
+    test('if step is smaller or equal to 0 should throw error', () => {
+      expect(() => {
+        arr.advmap(f, { step: 0 });
+      }).toThrow();
+    });
+    test('if step is bigger than the array length calculate only the first array value, [0]', () => {
+      expect([arr[0]].map(f)).toEqual(arr.advmap(f, { step: 12 }));
+      expect([objArr[0]].map(f)).toEqual(objArr.advmap(f, { step: 12 }));
+    });
+  });
+  describe('custom parameters', () => {
+    describe('before the default parameter', () => {
+      test('1 parameter', () => {
+        arr.advmap(
+          (e0, e) => {
+            console.log(e0, e);
+          },
+          { previousParamsCount: 1 }
+        );
+      });
     });
   });
 });

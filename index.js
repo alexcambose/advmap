@@ -1,6 +1,6 @@
 (() => {
   Array.prototype.advmap = function(callback, config, thisp) {
-    const _this = Object(this);
+    let _this = Object(this);
     // if `this` parameter is not specified use this
     if (!thisp) thisp = _this;
     // check if callback is provided
@@ -12,9 +12,9 @@
     const {
       skip = 0,
       limit = 0,
-      reversed = false,
       step = 1,
-      args: { previous = 0, next = 0 } = {},
+      previousParamsCount = 0,
+      nextParamsCount = 0,
     } = config || {};
 
     // perform some checks on the config
@@ -35,17 +35,20 @@
     //set end index, minimum between the total length and the start + limit so we will never go over the array lenght
     //if limit is 0 then it means we should use the default array length
     end = limit ? Math.min(start + limit, _this.length) : _this.length;
-    if (reversed) start = [end, (end = start)][0];
 
     for (let i = start; i < end; i += step) {
+      previousParams = new Array(previousParamsCount);
+      nextParams = [];
       currentArrayIndex = i - start;
-      console.log(arr);
       // for previous params
-      for (let j = i - 1; j >= 0 && Math.abs(i - j) <= previous; j--)
-        previousParams.push(_this[j]);
+
+      for (let j = i - 1; j >= 0 && Math.abs(i - j) <= previousParamsCount; j--)
+        previousParams.push(_this[previousParamsCount - Math.abs(i - j)]);
+
       // for next params
-      for (let j = i + 1; j >= end && Math.abs(i - j) <= next; j++)
+      for (let j = i + 1; j >= end && Math.abs(i - j) <= nextParamsCount; j++)
         nextParams.push(_this[j]);
+
       arr[newArrayIndex] = callback.call(
         thisp,
         ...[...previousParams, _this[i], ...nextParams],
@@ -56,9 +59,11 @@
     return arr;
   };
 })();
+
 const a = [1, 2, 3, 4];
-const f = function(e) {
+const f = function(e0, e, i, i2) {
+  console.log(e0, e);
   return e;
 };
-const b = a.advmap(f, { step: 2 });
-console.log(b);
+const b = a.advmap(f, { previousParamsCount: 1 });
+// console.log(b);
