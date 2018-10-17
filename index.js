@@ -41,13 +41,11 @@
       nextParams = [];
       currentArrayIndex = i - start;
       // for previous params
+      for (let j = previousParamsCount; j >= 0; j--)
+        previousParams[previousParamsCount - j - 1] = _this[i - (j + 1) * step];
 
-      for (let j = i - 1; j >= 0 && Math.abs(i - j) <= previousParamsCount; j--)
-        previousParams.push(_this[previousParamsCount - Math.abs(i - j)]);
-
-      // for next params
-      for (let j = i + 1; j >= end && Math.abs(i - j) <= nextParamsCount; j++)
-        nextParams.push(_this[j]);
+      for (let j = i; j < i + nextParamsCount; j += step)
+        nextParams.push(_this[j + step]);
 
       arr[newArrayIndex] = callback.call(
         thisp,
@@ -59,11 +57,3 @@
     return arr;
   };
 })();
-
-const a = [1, 2, 3, 4];
-const f = function(e0, e, i, i2) {
-  console.log(e0, e);
-  return e;
-};
-const b = a.advmap(f, { previousParamsCount: 1 });
-// console.log(b);

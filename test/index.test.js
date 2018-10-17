@@ -105,13 +105,29 @@ describe('custom config', () => {
   });
   describe('custom parameters', () => {
     describe('before the default parameter', () => {
-      test('1 parameter', () => {
+      test('returns `undefined` if it exceeds array boundaries', () => {
+        const res = [undefined, ...arr.slice(0, arr.length - 1)];
+        let newRes = [];
         arr.advmap(
           (e0, e) => {
-            console.log(e0, e);
+            newRes.push(e0);
           },
           { previousParamsCount: 1 }
         );
+        expect(newRes).toEqual(res);
+      });
+    });
+    describe('after the default parameter', () => {
+      test('returns `undefined` if it exceeds array boundaries', () => {
+        const res = [...arr.slice(1, arr.length), undefined];
+        let newRes = [];
+        arr.advmap(
+          (e, e0) => {
+            newRes.push(e0);
+          },
+          { nextParamsCount: 1 }
+        );
+        expect(newRes).toEqual(res);
       });
     });
   });
