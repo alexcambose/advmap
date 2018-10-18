@@ -1,17 +1,32 @@
 {
-  "name": "doublemap",
+  "name": "advmap",
   "version": "1.0.0",
-  "description": "",
+  "description": "[...].map() that supports skip, limit, step and more",
   "main": "index.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "array",
+    "javascript",
+    "map",
+    "improved",
+    "mutation",
+    "skip",
+    "limit"
+  ],
+  "author": "Alexandru Cambose",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexcambose/advmap/issues"
+  },
+  "homepage": "https://github.com/alexcambose/advmap#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexcambose/advmap.git"
+  },
   "devDependencies": {
-    "ava": "^0.25.0",
     "jest": "^23.6.0"
   }
 }
