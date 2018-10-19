@@ -19,7 +19,9 @@
 
         // perform some checks on the config
         if (step === 0 || step < 0) {
-            throw new TypeError(`The value ${step} for step must be bigger than 0.`);
+            throw new TypeError(
+                `The value ${step} for step must be bigger than 0.`
+            );
         }
 
         //define some vars
@@ -42,7 +44,8 @@
             currentArrayIndex = i - start;
             // for previous params
             for (let j = previousParamsCount; j >= 0; j--)
-                previousParams[previousParamsCount - j - 1] = _this[i - (j + 1) * step];
+                previousParams[previousParamsCount - j - 1] =
+                    _this[i - (j + 1) * step];
 
             for (let j = i; j < i + nextParamsCount; j += step)
                 nextParams.push(_this[j + step]);
