@@ -1,6 +1,7 @@
 # advmap
 
 [![Build Status](https://travis-ci.org/alexcambose/advmap.svg?branch=master)](https://travis-ci.org/alexcambose/advmap)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 `[...].map()` that supports skip, limit, step and more
 
@@ -26,11 +27,11 @@ import 'advmap';
 
 - Configuration
 
-  - Skip
-  - Limit
-  - Step
-  - previousParams
-  - nextParams
+  - [Skip](#skip)
+  - [Limit](#limit)
+  - [Step](#step)
+  - [previousParams](#previousParams)
+  - [nextParams](#nextParams)
 
 - Examples
 
