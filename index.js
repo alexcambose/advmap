@@ -74,16 +74,3 @@
         return arr;
     };
 })();
-
-let array = [1, 1, 2];
-const nextNumber = () =>
-    array.advmap((p1, e, n1) => (p1 ? p1 + e : n1), {
-        previousParamsCount: 1,
-        nextParamsCount: 1,
-    });
-array = nextNumber();
-array = nextNumber();
-array = nextNumber();
-array = nextNumber();
-array = nextNumber();
-console.log(array);

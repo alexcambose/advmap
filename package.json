@@ -4,8 +4,8 @@
   "description": "[...].map() that supports skip, limit, step and more",
   "main": "index.js",
   "scripts": {
-    "test": "nyc jest",
-    "test:watch": "nyc jest --watch"
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage"
   },
   "keywords": [
     "array",
@@ -28,7 +28,6 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.2",
-    "jest": "^23.6.0",
-    "nyc": "^13.1.0"
+    "jest": "^23.6.0"
   }
 }

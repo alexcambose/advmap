@@ -3,6 +3,9 @@ require('..');
 test('array has .advmap property', () => {
     expect([].__proto__['advmap']).toBeTruthy();
 });
+test('throws error if no function is provided', () => {
+    expect(() => [].advmap({})).toThrow();
+});
 describe('should behave like the native version', () => {
     let arr = [1, 2, 3, 4];
     test('maps values', () => {
