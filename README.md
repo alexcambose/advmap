@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/alexcambose/advmap.svg?branch=master)](https://travis-ci.org/alexcambose/advmap)
 [![Coverage Status](https://coveralls.io/repos/github/alexcambose/advmap/badge.svg?branch=master)](https://coveralls.io/github/alexcambose/advmap?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+[![GitHub license](https://img.shields.io/github/license/Naereen/StrapDown.js.svg)](https://github.com/Naereen/StrapDown.js/blob/master/LICENSE)
 
 `[...].map()` that supports skip, limit, step and more
 
