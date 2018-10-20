@@ -74,6 +74,16 @@
         return arr;
     };
 })();
-// [1, 2, 3, 4, 5].advmap((e, i, ii) => console.log(e, i, ii), {
-//     step: 1,
-// });
+
+let array = [1, 1, 2];
+const nextNumber = () =>
+    array.advmap((p1, e, n1) => (p1 ? p1 + e : n1), {
+        previousParamsCount: 1,
+        nextParamsCount: 1,
+    });
+array = nextNumber();
+array = nextNumber();
+array = nextNumber();
+array = nextNumber();
+array = nextNumber();
+console.log(array);

@@ -27,6 +27,7 @@
     "url": "git+https://github.com/alexcambose/advmap.git"
   },
   "devDependencies": {
+    "coveralls": "^3.0.2",
     "jest": "^23.6.0",
     "nyc": "^13.1.0"
   }

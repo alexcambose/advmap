@@ -1,6 +1,7 @@
 # advmap
 
 [![Build Status](https://travis-ci.org/alexcambose/advmap.svg?branch=master)](https://travis-ci.org/alexcambose/advmap)
+[![Coverage Status](https://coveralls.io/repos/github/alexcambose/advmap/badge.svg?branch=master)](https://coveralls.io/github/alexcambose/advmap?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
 `[...].map()` that supports skip, limit, step and more
@@ -33,6 +34,7 @@ import 'advmap';
   - [previousParamsCount](#previous-params)
   - [nextParamsCount](#next-params)
 
+- [Filtering](#filtering)
 - [Examples](#examples)
 
 ## Configuration
@@ -154,6 +156,29 @@ elements that are outsite of the array are `undefined`
 */
 ```
 
+## Filtering
+
+**advmap** provides an additional parameter that can be used to check if the current element, index etc.. respects a particular condition
+
+```js
+[1, 2, 3, 4, 5].advmap(e => e > 2 && e < 4, e => e + ' apples');
+// [ '3 apples' ]
+```
+
+it also has all the arguments that the main map function has
+
+```js
+[0, 2, 3, 1, 5].advmap(
+  (p1, e, n1) => p1 > e && e < n1,
+  (p1, e) => e + ' is between two bigger numbers',
+  {
+    previousParamsCount: 1,
+    nextParamsCount: 1,
+  }
+);
+// [ '1 is between two bigger numbers' ]
+```
+
 ## Examples
 
 ### Simple usage like the native `[].map` function
@@ -161,6 +186,22 @@ elements that are outsite of the array are `undefined`
 ```js
 const array = [1, 2, 3, 4].advmap(e => e + 1);
 console.log(array); // [2,3,4,5]
+```
+
+Generate the next number in a [fibonacci sequence](https://en.wikipedia.org/wiki/Fibonacci_number)
+
+```js
+let array = [1, 1];
+const nextNumber = () =>
+  array.advmap((p1, e, n1) => (p1 ? p1 + e : n1), {
+    previousParamsCount: 1,
+    nextParamsCount: 1,
+  });
+array = nextNumber(); // [1, 2]
+array = nextNumber(); // [2, 3]
+array = nextNumber(); // [3, 5]
+array = nextNumber(); // [5, 8]
+array = nextNumber(); // [8, 13]
 ```
 
 ---
