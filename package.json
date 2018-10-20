@@ -4,8 +4,8 @@
   "description": "[...].map() that supports skip, limit, step and more",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "nyc jest",
+    "test:watch": "nyc jest --watch"
   },
   "keywords": [
     "array",
@@ -27,6 +27,7 @@
     "url": "git+https://github.com/alexcambose/advmap.git"
   },
   "devDependencies": {
-    "jest": "^23.6.0"
+    "jest": "^23.6.0",
+    "nyc": "^13.1.0"
   }
 }

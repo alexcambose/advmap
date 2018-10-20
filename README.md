@@ -25,15 +25,15 @@ import 'advmap';
 
 # Table of Contents
 
-- Configuration
+- [Configuration](#configuration)
 
   - [Skip](#skip)
   - [Limit](#limit)
   - [Step](#step)
-  - [previousParams](#previousParams)
-  - [nextParams](#nextParams)
+  - [previousParamsCount](#previous-params)
+  - [nextParamsCount](#next-params)
 
-- Examples
+- [Examples](#examples)
 
 ## Configuration
 
@@ -89,6 +89,15 @@ last parameter is where the item (e) is located in the array
 [3, 1, 2]
 [5, 2, 4]
 */
+[1, 2, 3, 4, 5].advmap((e, i, ii) => console.log(e, i, ii), { step: 1 });
+/*
+If step is set to 1 (default) index parameters will be the same
+[1, 0, 0]
+[2, 1, 1]
+[3, 2, 2]
+[4, 3, 3]
+[5, 4, 4]
+*/
 ```
 
 ### Previous params
@@ -105,7 +114,6 @@ adds a number of fixed parameters to the `advmap` method, before the current ele
 [1, 2, 3]
 [2, 3, 4]
 [3, 4, 5]
-
 */
 ```
 
@@ -159,4 +167,4 @@ console.log(array); // [2,3,4,5]
 
 ## License
 
-[MIT](LICENSE.md)
+[MIT](LICENSE)

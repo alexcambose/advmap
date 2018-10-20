@@ -1,13 +1,18 @@
 (() => {
-    Array.prototype.advmap = function(callback, config, thisp) {
+    Array.prototype.advmap = function(checkCallback, callback, config, thisp) {
+        // first callback MUST be provided
+        if (typeof checkCallback !== 'function') {
+            throw new TypeError(callback + ' is not a function');
+        }
+        if (typeof callback !== 'function') {
+            thisp = config;
+            config = callback;
+            callback = checkCallback;
+            checkCallback = undefined;
+        }
         let _this = Object(this);
         // if `this` parameter is not specified use this
         if (!thisp) thisp = _this;
-        // check if callback is provided
-        if (typeof callback !== 'function') {
-            throw new TypeError(callback + ' is not a function');
-        }
-
         // get config with the defaults
         const {
             skip = 0,
@@ -47,16 +52,28 @@
                 previousParams[previousParamsCount - j - 1] =
                     _this[i - (j + 1) * step];
 
+            // for next params
+
             for (let j = i; j < i + nextParamsCount; j += step)
                 nextParams.push(_this[j + step]);
 
-            arr[newArrayIndex] = callback.call(
+            const callParameters = [
                 thisp,
                 ...[...previousParams, _this[i], ...nextParams],
-                newArrayIndex++,
-                currentArrayIndex
-            );
+                newArrayIndex,
+                currentArrayIndex,
+            ];
+            if (
+                !checkCallback ||
+                (checkCallback && checkCallback.call(...callParameters))
+            ) {
+                arr[newArrayIndex] = callback.call(...callParameters);
+                newArrayIndex++;
+            }
         }
         return arr;
     };
 })();
+// [1, 2, 3, 4, 5].advmap((e, i, ii) => console.log(e, i, ii), {
+//     step: 1,
+// });

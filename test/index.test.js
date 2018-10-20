@@ -140,4 +140,28 @@ describe('custom config', () => {
             });
         });
     });
+    describe('check function', () => {
+        test('has the same parameters as the map function parameter', () => {
+            let arg1 = [],
+                arg2 = [];
+            arr.advmap(
+                () => {
+                    arg1.push(arguments);
+                    return true;
+                },
+                () => {
+                    arg2.push(arguments);
+                }
+            );
+            expect(arg1).toEqual(arg2);
+        });
+        test('skips elements if it returns falsy', () => {
+            expect(arr.slice(1).map(f)).toEqual(
+                arr.advmap((e, i, ii) => ii >= 1, f)
+            );
+            expect(objArr.slice(1).map(f)).toEqual(
+                objArr.advmap((e, i, ii) => ii >= 1, f)
+            );
+        });
+    });
 });
