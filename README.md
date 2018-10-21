@@ -204,6 +204,9 @@ array = nextNumber(); // [3, 5]
 array = nextNumber(); // [5, 8]
 array = nextNumber(); // [8, 13]
 ```
+---
+
+#### Find this module useful ? Give it a :star: !
 
 ---
 
